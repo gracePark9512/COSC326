@@ -1,0 +1,9 @@
+package rollin;
+
+public class RollinApp extends Rollin{
+  
+  //override
+  public void handroll(int roll){
+    //random?
+}
+}

@@ -1,0 +1,27 @@
+import java.util.*;
+
+
+public class Identity{ 
+  
+  public static void main(String []args){
+    double x = 1.03284786432723443; 
+    double y = 1.77889; 
+    double leftside; 
+    double rightside;
+    
+    leftside = x;
+    rightside = ((x/y)-(x*y))*y+(x*y*y);
+    
+
+    if(leftside == rightside){ 
+      System.out.println("true"); 
+    }else{ 
+      System.out.println("false"); 
+    } 
+    //System.out.println("Float left: "+ (float) leftside);
+    //System.out.println("Float right: "+ (float) rightside);
+    System.out.println("Double left: "+ leftside);
+    System.out.println("Double right: "+ rightside); 
+  }
+  
+} 

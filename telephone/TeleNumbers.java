@@ -1,0 +1,254 @@
+package telephone;
+
+import java.io.*;
+import java.util.*;
+
+
+/**
+ * TeleNumbers.java 
+ * Decide whether given number is valid or not and decide valid numbers have duplicates
+ * @author Hyunsun Park
+ */
+public class TeleNumbers{
+  
+ /**Method validates number if it is valid or not.
+   * @param String numbers for provided telephone numbers
+   * @return true if valid 
+   * @return false if not valid
+   */
+  public static boolean validateNumber(String numbers){
+    
+    
+    if((numbers.contains("(") && !numbers.contains(")")) || (numbers.contains(")") && !numbers.contains("(")))
+      return false;
+    if(numbers.contains("-") && numbers.contains("\\s{2}"))
+      return false;
+    if(numbers.contains("[0-9]") && numbers.contains("[^A-Z]") && numbers.contains("\\s{1}"))
+      return false;
+    
+    
+    
+    
+// WITH SPACE
+    //validate number with initial code 0508 6dig
+    if(numbers.matches("^[(]?(0508)[)]?\\s\\d{3}[\\s-]\\d{3}$")) return true;
+    //validate numbers with initial code 0800 6-7dig
+    else if(numbers.matches("^[(]?(0800)[)]?\\s\\d{3}[\\s-]\\d{3,4}$")) return true;
+    //validate numbers with initial code 0900 5dig
+    else if(numbers.matches("^[(]?(0900)[)]?\\s\\d{5}$")) return true;
+    //vallidate numbers with area code 02 7dig first 3 dig 409
+    else if(numbers.matches("^[(]?(02)[)]?\\s(409)[\\s-]\\d{4}")) return true;
+    //validate numbers with area code 03,04,06,07,09 7dig first dig 2-8
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?\\s[^901]\\d{2}[\\s-]\\d{4}$")) return true;
+    //validate numbers same as above but with 9 not 900
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?\\s(90)[^0][\\s-]\\d{4}$")) return true;
+    //validate numbers same as above with 9 not 911
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?\\s(91)[^1][\\s-]\\d{4}$")) return true;
+    //validate numbers same as above with 0 not 999
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?\\s(99)[^9][\\s-]\\d{4}$")) return true;
+    //not 0,1,9 after 9 is valid
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?\\s(9)[^019]\\d{1}[\\s-]\\d{4}$")) return true;
+    //validate mobile codes 021 6-7dig
+    else if(numbers.matches("^[(]?(021)[)]?\\s\\d{3}[\\s-]\\d{3,4}$")) return true;
+    //validate mobile codes 021 8dig
+    else if(numbers.matches("^[(]?(021)[)]?\\s\\d{4}[\\s-]\\d{4}$")) return true;
+    //validate mobile codes 022,027 
+    else if(numbers.matches("^[(]?(022|027)[)]?\\s\\d{3}[\\s-]\\d{4}$")) return true;
+    //validate mobile codes 025 6dig
+    else if(numbers.matches("^[(]?(025)[)]?\\s\\d{3}[\\s-]\\d{3}$")) return true;
+    
+// WITHOUT SPACE
+    //validate number with initial code 0508 6dig
+    else if(numbers.matches("^[(]?(0508)[)]?\\d{6}$")) return true;
+    //validate numbers with initial code 0800 6-7dig
+    else if(numbers.matches("^[(]?(0800)[)]?\\d{6,7}$")) return true;
+    //validate numbers with initial code 0900 5dig
+    else if(numbers.matches("^[(]?(0900)[)]?\\d{5}$")) return true;
+    //vallidate numbers with area code 02 7dig first 3 dig 409
+    else if(numbers.matches("^[(]?(02)[)]?(409)\\d{4}$")) return true;
+    //validate numbers with area code 03,04,06,07,09 7dig first dig 2-8
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?[^901]\\d{6}$")) return true;
+    //validate numbers same as above but with 9 not 900
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?(90)[^0]\\d{4}$")) return true;
+    //validate numbers same as above with 9 not 911
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?(91)[^1]\\d{4}$")) return true;
+    //validate numbers same as above with 0 not 999
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?(99)[^9]\\d{4}$")) return true;
+    //not 0,1,9 after 9 is valid
+    else if(numbers.matches("^[(]?(03|04|06|07|09)[)]?(9)[^019]\\d{5}$")) return true;
+    //validate mobile codes 021 6-7dig
+    else if(numbers.matches("^[(]?(021)[)]?\\d{6,7}$")) return true;
+    //validate mobile codes 021 8dig
+    else if(numbers.matches("^[(]?(021)[)]?\\d{8}$")) return true;
+    //validate mobile codes 022,027 
+    else if(numbers.matches("^[(]?(022|027)[)]?\\d{7}$")) return true;
+    //validate mobile codes 025 6dig
+    else if(numbers.matches("^[(]?(025)[)]?\\d{6}$")) return true;
+    
+    
+// WITH SPACE + Parenthesis space
+    //validate number with initial code 0508 6dig
+    else if(numbers.matches("^[(](0508)[)]\\s?\\d{3}[\\s-]\\d{3}$")) return true;
+    //validate numbers with initial code 0800 6-7dig
+    else if(numbers.matches("^[(](0800)[)]\\s?\\d{3}[\\s-]\\d{3,4}$")) return true;
+    //validate numbers with initial code 0900 5dig
+    else if(numbers.matches("^[(](0900)[)]\\s?\\d{5}$")) return true;
+    //vallidate numbers with area code 02 7dig first 3 dig 409
+    else if(numbers.matches("^[(](02)[)]\\s?(409)[\\s-]\\d{4}")) return true;
+    //validate numbers with area code 03,04,06,07,09 7dig first dig 2-8
+    else if(numbers.matches("^[(](03|04|06|07|09)[)]\\s?[^901]\\d{2}[\\s-]\\d{4}$")) return true;
+    //validate numbers same as above but with 9 not 900
+    else if(numbers.matches("^[(](03|04|06|07|09)[)]\\s?(90)[^0][\\s-]\\d{4}$")) return true;
+    //validate numbers same as above with 9 not 911
+    else if(numbers.matches("^[(](03|04|06|07|09)[)]\\s?(91)[^1][\\s-]\\d{4}$")) return true;
+    //validate numbers same as above with 0 not 999
+    else if(numbers.matches("^[(](03|04|06|07|09)[)]\\s?(99)[^9][\\s-]\\d{4}$")) return true;
+    //not 0,1,9 after 9 is valid
+    else if(numbers.matches("^[(](03|04|06|07|09)[)]\\s?(9)[^019]\\d{1}[\\s-]\\d{4}$")) return true;
+    //validate mobile codes 021 6-7dig
+    else if(numbers.matches("^[(](021)[)]\\s?\\d{3}[\\s-]\\d{3,4}$")) return true;
+    //validate mobile codes 021 8dig
+    else if(numbers.matches("^[(](021)[)]\\s?\\d{4}[\\s-]\\d{4}$")) return true;
+    //validate mobile codes 022,027 
+    else if(numbers.matches("^[(](022|027)[)]\\s?\\d{3}[\\s-]\\d{4}$")) return true;
+    //validate mobile codes 025 6dig
+    else if(numbers.matches("^[(](025)[)]\\s?\\d{3}[\\s-]\\d{3}$")) return true;
+    
+    //numbers.contains("[A-Z]+") && 
+    
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^(0508)\\s[0-9_A-Z]{6}[A-Z]{0,3}$")) return true;
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^[(](0508)[)]\\s?[0-9_A-Z]{6}[A-Z]{0,3}$")) return true;
+    
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^(0800)\\s[0-9_A-Z]{6}[A-Z]{0,3}$")) return true;
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^[(](0800)[)]\\s?[0-9_A-Z]{6}[A-Z]{0,3}$")) return true;
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^(0800)\\s[0-9_A-Z]{7}[A-Z]{0,2}$")) return true;
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^[(](0800)[)]\\s?[0-9_A-Z]{7}[A-Z]{0,2}$")) return true;
+    
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^[(](0900)[)]\\s?[0-9_A-Z]{5}[A-Z]{0,4}$")) return true;
+    else if(numbers.matches(".*[A-Z]+.*") && numbers.matches("^(0900)\\s[0-9_A-Z]{5}[A-Z]{0,4}$")) return true;
+    
+    else return false;
+    
+  }//validNum
+  
+  
+  /**
+   * Method to delete all spaces of numbers and replace characters into numbers.
+   * @param String numbers for given telephone numbers
+   * @return replaced for replaced numbers
+   */
+  public static String replaceNum(String numbers){
+    //remove space
+    numbers = numbers.replaceAll("[(]","").replaceAll("[)]","").replaceAll("-"," ").replaceAll("\\s", "");
+    String replaced = numbers;
+    //replace character
+    Map <String, String> aMap = new HashMap<String, String>();;
+    aMap.put("[A-C]", "2");
+    aMap.put("[D-F]", "3");
+    aMap.put("[G-I]", "4");
+    aMap.put("[J-L]", "5");
+    aMap.put("[M-O]", "6");
+    aMap.put("[P-S]", "7");
+    aMap.put("[T-V]", "8");
+    aMap.put("[W-Z]", "9");
+    
+    Iterator <String> keys = aMap.keySet().iterator();
+    while (keys.hasNext()){
+      String regex = (String) keys.next();
+      String replacementValue = (String) aMap.get(regex);
+      replaced = replaced.replaceAll(regex, replacementValue);
+    }
+    
+    
+    return replaced;
+  }//replace Character
+  
+  
+  /**
+   * Method that deletes over sized number with characters and if not over sized,re-format it to
+   * valid format.
+   * @param numbers for set of numbers without space
+   * @return re for reformated numbers.
+   */
+  public static String delOver(String numbers){
+    
+    String re = numbers;    
+    String num = replaceNum(numbers);
+    StringBuilder sb = new StringBuilder(num);
+    
+    if(num.matches("^(0508).*")){
+      sb = sb.delete(10, num.length());
+      re = sb.toString();
+      re = re.replaceAll("^(\\d{4})(\\d{3})(\\d{3})$", "$1 $2 $3");      
+      
+    }
+    else if(num.matches("^(0800).*")){
+      if(num.length() >= 11){
+        sb = sb.delete(11, num.length());
+      }
+      else if(num.length() == 10){
+        sb = sb.delete(10, num.length());
+      }
+      re = sb.toString();
+      re = re.replaceAll("^(\\d{4})(\\d{3})(\\d{3,4})$", "$1 $2 $3");
+    }
+    
+    else if(num.matches("^(0800).*") && (num.length() == 6)){
+      sb = sb.delete(10, num.length());
+      re = sb.toString();
+      re = re.replaceAll("^(\\d{4})(\\d{3})(\\d{3,4})$", "$1 $2 $3");
+      
+    }
+    
+    else if(num.matches("^(0900).*")){
+      sb = sb.delete(9, num.length());
+      re = sb.toString();
+      re = re.replaceAll("^(\\d{4})(\\d{5})$", "$1 $2");
+      
+    }
+    else if(num.matches("^(02|03|04|06|07|09|021|022|027|025).*")){
+      re = num.replaceAll("^(025)", "0274");
+      re = re.replaceAll("^(\\d{2,3})(\\d{3,4})(\\d{4})$", "$1 $2 $3");
+    }
+    
+    return re;
+    
+    
+  }//addSpace
+  
+  
+  
+  
+  
+  
+  
+  public static void main(String [] args) {
+    Set <String> list = new HashSet<String>();
+    
+    try {
+      
+      Scanner input = new Scanner(System.in);
+      
+      while (input.hasNextLine()) {
+        String line = input.nextLine();
+        if(validateNumber(line)){
+          if(list.add(delOver(line)) == false){
+            System.out.println(delOver(line)+ " DUP");
+          }else{
+            System.out.println(delOver(line));
+          }
+        }
+        else{
+          System.out.println(line + " INV");
+        }
+        
+      }
+    }
+    catch (Exception ex) {
+      System.out.println("Invalid File");
+      
+    }
+    
+  }
+  
+}

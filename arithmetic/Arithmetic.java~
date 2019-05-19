@@ -1,0 +1,37 @@
+package arithmetic;
+
+public class Arithmetic{
+  
+  
+  public void main(String []args){
+        
+   try {
+            System.out.print("Enter the file name: ");
+
+            Scanner input = new Scanner(System.in);
+
+            File file = new File(input.nextLine());
+
+            input = new Scanner(file);
+
+
+            while (input.hasNextLine()) {
+                String define = input.nextLine();
+                if(define.contains(".*[L]$"){
+                  
+
+                }
+                else{
+
+            }
+                }
+            input.close();
+
+              
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+  }
+}//class end 
